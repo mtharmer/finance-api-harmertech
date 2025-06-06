@@ -51,3 +51,5 @@ end
 group :test do
   gem "rspec-rails", "~> 7.1"
 end
+
+gem "aws-sdk", "~> 3.3"
