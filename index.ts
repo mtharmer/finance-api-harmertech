@@ -3,12 +3,15 @@ import cors from "cors";
 import supertokens from "supertokens-node";
 import { verifySession } from "supertokens-node/recipe/session/framework/express";
 import { middleware, errorHandler, SessionRequest } from "supertokens-node/framework/express";
-import { getWebsiteDomain, SuperTokensConfig } from "./config.js";
-import Multitenancy from "supertokens-node/recipe/multitenancy";
+import { getWebsiteDomain, SuperTokensConfig, connectDB } from "./config.js";
+import debts from "./routes/debts";
 
 supertokens.init(SuperTokensConfig);
 
 const app = express();
+
+// Connect to the mongo database
+connectDB();
 
 app.use(
     cors({
@@ -22,10 +25,8 @@ app.use(
 // This exposes all the APIs from SuperTokens to the client.
 app.use(middleware());
 
-// This endpoint can be accessed regardless of
-// having a session with SuperTokens
-app.get("/hello", async (_req, res) => {
-    res.send("hello");
+app.get("/status", async (_req, res) => {
+    res.status(200).send("success");
 });
 
 // An example API that requires session verification
@@ -39,12 +40,8 @@ app.get("/sessioninfo", verifySession(), async (req: SessionRequest, res) => {
     });
 });
 
-// This API is used by the frontend to create the tenants drop down when the app loads.
-// Depending on your UX, you can remove this API.
-app.get("/tenants", async (_req, res) => {
-    const tenants = await Multitenancy.listAllTenants();
-    res.send(tenants);
-});
+// Pull in routing files to serve
+app.use('/debts', debts);
 
 // In case of session related errors, this error handler
 // returns 401 to the client.
