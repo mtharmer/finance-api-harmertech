@@ -9,6 +9,7 @@ export async function getAllDebts(req: SessionRequest, res: Response) {
     res.json(debts);
   } catch (err) {
     console.error(err);
+    res.status(500);
   }
 };
 
