@@ -13,6 +13,8 @@ const app = express();
 // Connect to the mongo database
 connectDB();
 
+app.use(express.json());
+
 app.use(
     cors({
         origin: getWebsiteDomain(),
