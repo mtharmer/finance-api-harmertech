@@ -6,7 +6,7 @@ import { Response } from 'express';
 export async function getAllDebts(req: SessionRequest, res: Response) {
   try { 
     const debts = await Debt.find({userId: userIdFromReq(req)});
-    res.json(debts);
+    res.status(200).json(debts);
   } catch (err) {
     console.error(err);
     res.status(500);
@@ -16,7 +16,7 @@ export async function getAllDebts(req: SessionRequest, res: Response) {
 export async function getOneDebt(req: SessionRequest, res: Response) {
   try {
     const debt = await Debt.findOne({_id: req.params.id})
-    res.json(debt);
+    res.status(200).json(debt);
   } catch (err) {
     console.error(err);
     res.status(500);
@@ -26,7 +26,7 @@ export async function getOneDebt(req: SessionRequest, res: Response) {
 export async function createDebt(req: SessionRequest, res: Response) {
   try {
     const debt = await Debt.create({ userId: userIdFromReq(req), ...req.body});
-    res.json(debt);
+    res.status(200).json(debt);
   } catch (err) {
     console.error(err);
     res.status(500);
@@ -37,7 +37,7 @@ export async function updateDebt(req: SessionRequest, res: Response) {
   try {
     const userId = userIdFromReq(req);
     const debt = await Debt.updateOne({_id: req.params.id, userId: userId}, {userId: userId, ...req.body})
-    res.json(debt)
+    res.status(200).json(debt)
   } catch (err) {
     console.error(err);
     res.status(500);
