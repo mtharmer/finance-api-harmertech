@@ -1,4 +1,4 @@
-import Debt from '../models/Debt';
+import Debt from '../models/debt.model';
 import { SessionRequest } from 'supertokens-node/framework/express';
 import { userIdFromReq } from '../util/session';
 import { Response } from 'express';

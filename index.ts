@@ -4,7 +4,7 @@ import supertokens from "supertokens-node";
 import { verifySession } from "supertokens-node/recipe/session/framework/express";
 import { middleware, errorHandler, SessionRequest } from "supertokens-node/framework/express";
 import { getWebsiteDomain, SuperTokensConfig, connectDB } from "./config.js";
-import debts from "./routes/debts";
+import debtRoutes from "./routes/debts.routes.js";
 
 supertokens.init(SuperTokensConfig);
 
@@ -43,7 +43,7 @@ app.get("/sessioninfo", verifySession(), async (req: SessionRequest, res) => {
 });
 
 // Pull in routing files to serve
-app.use('/debts', debts);
+app.use('/debts', debtRoutes);
 
 // In case of session related errors, this error handler
 // returns 401 to the client.

@@ -1,6 +1,6 @@
 import express from 'express';
 import { verifySession } from "supertokens-node/recipe/session/framework/express";
-import * as ctrl from '../controllers/debts-controller';
+import * as ctrl from '../controllers/debts.controller';
 
 const router = express.Router();
 
