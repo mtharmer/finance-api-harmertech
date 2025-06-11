@@ -15,11 +15,14 @@ export async function getAllDebts(req: SessionRequest, res: Response) {
 
 export async function getOneDebt(req: SessionRequest, res: Response) {
   try {
-    const debt = await Debt.findOne({_id: req.params.id})
-    res.status(200).json(debt);
+    const debt = await Debt.findById(req.params.id)
+    if (!debt) {
+      return res.status(404).json({error: 'Debt could not be found'});
+    }
+    return res.status(200).json(debt);
   } catch (err) {
     console.error(err);
-    res.status(500);
+    return res.status(500).json({error: err});
   }
 };
 
@@ -37,10 +40,13 @@ export async function updateDebt(req: SessionRequest, res: Response) {
   try {
     const userId = userIdFromReq(req);
     const debt = await Debt.updateOne({_id: req.params.id, userId: userId}, {userId: userId, ...req.body})
-    res.status(200).json(debt)
+    if (!debt.acknowledged || debt.matchedCount <= 0) {
+      return res.status(404).json({error: 'Debt could not be found'})
+    }
+    return res.status(200).json(debt)
   } catch (err) {
     console.error(err);
-    res.status(500);
+    return res.status(500);
   }
 };
 

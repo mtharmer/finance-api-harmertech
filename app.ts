@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import supertokens from "supertokens-node";
-import validateSession from "middleware/validateSession";
+import { verifySession } from "supertokens-node/recipe/session/framework/express";
 import { middleware, errorHandler, SessionRequest } from "supertokens-node/framework/express";
 import { getWebsiteDomain, SuperTokensConfig, connectDB } from "./config";
 import debtRoutes from "./routes/debts.routes";
@@ -32,7 +32,7 @@ app.get("/status", async (_req, res) => {
 });
 
 // An example API that requires session verification
-app.get("/sessioninfo", validateSession(), async (req: SessionRequest, res) => {
+app.get("/sessioninfo", verifySession(), async (req: SessionRequest, res) => {
     const session = req.session;
     console.log("Replying to session", session);
     res.send({
@@ -48,7 +48,5 @@ app.use('/debts', debtRoutes);
 // In case of session related errors, this error handler
 // returns 401 to the client.
 app.use(errorHandler());
-
-app.listen(3001, () => console.log(`API Server listening on port 3001`));
 
 export default app;
