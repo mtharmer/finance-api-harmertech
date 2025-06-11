@@ -33,3 +33,4 @@ jobs:
       env: 
         SUPERTOKENS_URI: http://localhost
         SUPERTOKENS_API_KEY: somekey
+        MONGODB_URI: mongodb://localhost:27017/finance_api_test
