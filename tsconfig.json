@@ -10,7 +10,7 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
-        "types": ["node"],
+        "types": ["node", "jest"],
         "noEmitOnError": true,
 
         /* Source Map Options */
@@ -26,6 +26,6 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["./*.ts"],
+    "include": ["./*.ts", "config/app.config.ts"],
     "exclude": ["node_modules"]
 }
