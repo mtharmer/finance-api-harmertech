@@ -3,7 +3,7 @@ import cors from "cors";
 import supertokens from "supertokens-node";
 import validateSession from "./middleware/validateSession";
 import { middleware, errorHandler, SessionRequest } from "supertokens-node/framework/express";
-import { getWebsiteDomain, SuperTokensConfig, connectDB } from "./config/app.config";
+import { getWebsiteDomain, SuperTokensConfig } from "./app.config";
 import debtRoutes from "./routes/debts.routes";
 import logger from "./logger";
 
@@ -12,19 +12,6 @@ supertokens.init(SuperTokensConfig);
 logger.info("authentication initialized")
 
 const app = express();
-
-// Connect to the mongo database
-logger.info("connecting to database...");
-
-(async () => {
-    try {
-        await connectDB();
-        logger.info('connected to mongodb');
-    } catch (err) {
-        logger.error('failed to connect to mongodb', {error: err});
-        process.exit(1);
-    }
-})();
 
 app.use(express.json());
 

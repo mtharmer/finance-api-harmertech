@@ -24,8 +24,26 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+
+        "declaration": true,
+        "emitDecoratorMetadata": true, 
+        "experimentalDecorators": true, 
+        "strictPropertyInitialization": false,
+
+        // "target": "ESNext",
+        // "module": "ESNext",
+        // "moduleResolution": "Node",
+        // "strict": true,
+        // "rootDir": "./src",
+        // "outDir": "./dist",
+        // "experimentalDecorators": true,
+        // "emitDecoratorMetadata": true,
+        // "esModuleInterop": true
     },
-    "include": ["./*.ts", "config/app.config.ts"],
-    "exclude": ["node_modules"]
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"],
+    // "ts-node": {
+    //     "esm": true
+    // }
 }
