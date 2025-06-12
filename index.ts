@@ -1,3 +1,6 @@
 import app from './app';
+import logger from 'logger';
 
-app.listen(3001, () => console.log(`API Server listening on port 3001`));
+const port = process.env.API_PORT || 3001
+
+app.listen(port, () => logger.info(`API Server listening on port ${port}`));
