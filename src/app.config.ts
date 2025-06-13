@@ -35,8 +35,8 @@ export const SuperTokensConfig: TypeInput = {
     ],
 };
 
-const mainDb = new DataSource({
-    type: "postgres",
+export const db = new DataSource({
+    type: 'postgres',
     url: process.env.PG_API_URL,
     synchronize: true,
     logging: true,
@@ -44,16 +44,3 @@ const mainDb = new DataSource({
     subscribers: [],
     migrations: ["migration/*.ts"],
 });
-
-const testDb = new DataSource({
-    type: "sqlite",
-    database: ":memory:",
-    dropSchema: true,
-    entities: [Debt],
-    subscribers: [],
-    synchronize: true,
-    logging: false,
-    migrations: ["../migration/*.ts"],
-})
-
-export const db = (process.env.NODE_ENV === 'test') ? testDb : mainDb;

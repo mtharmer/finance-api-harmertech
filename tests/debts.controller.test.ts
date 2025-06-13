@@ -1,19 +1,19 @@
 import "reflect-metadata";
 import supertest from "supertest";
-import app from '../app';
-import { Debt } from "../entity/Debt";
-import { db } from "../app.config";
+import app from '../src/app';
+import { Debt } from "../src/entity/Debt";
+import { db } from "../src/app.config";
 
 const request = supertest(app);
 
 const userId = 'someuser';
 
-jest.mock('../middleware/validateSession', () => ({
+jest.mock('../src/middleware/validateSession', () => ({
     __esModule: true,
     default: () => jest.fn((_req, _res, next) => next())
 }))
 
-jest.mock('../util/session', () => ({
+jest.mock('../src/util/session', () => ({
   __esModule: true,
   userIdFromReq: () => userId
 }))
