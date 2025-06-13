@@ -5,6 +5,13 @@ services:
     restart: unless-stopped
     env_file: .env.development
     network_mode: host
+    environment:
+      - NODE_ENV
+      - API_PORT
+      - VITE_FINANCE_API_URL
+      - PG_DB_URL
+      - SUPERTOKENS_URI
+      - SUPERTOKENS_API_KEY
   nginx-dev:
     build: ./nginx
     ports:
