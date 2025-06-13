@@ -16,3 +16,4 @@ services:
       - SUPERTOKENS_API_KEY
     ports:
       - 3001:3001
+    network_mode: host
