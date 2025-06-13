@@ -7,6 +7,13 @@ services:
       - "linux/amd64"
     hostname: finance-api
     restart: unless-stopped
+    environment:
+      - NODE_ENV
+      - API_PORT
+      - VITE_FINANCE_API_URL
+      - PG_DB_URL
+      - SUPERTOKENS_URI
+      - SUPERTOKENS_API_KEY
   nginx:
     image: 273058101644.dkr.ecr.us-east-1.amazonaws.com/nginx-prod:latest
     build:
