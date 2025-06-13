@@ -1,0 +1,20 @@
+services:
+  finance-api:
+    image: 273058101644.dkr.ecr.us-east-1.amazonaws.com/finance-api-prod:latest
+    build:
+      context: .
+      platforms:
+      - "linux/amd64"
+    hostname: finance-api
+    restart: unless-stopped
+  nginx:
+    image: 273058101644.dkr.ecr.us-east-1.amazonaws.com/nginx-prod:latest
+    build:
+      context: ./nginx
+      platforms:
+      - "linux/amd64"
+    ports:
+    - 80:80
+    - 443:443
+    depends_on:
+    - finance-api

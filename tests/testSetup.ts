@@ -1,13 +1,6 @@
 import "reflect-metadata";
-import { Debt } from "../entity/Debt";
-// import { DataSource } from "typeorm";
-import { db } from "../app.config";
-
-// jest.mock('../app.config', () => ({
-//   ...jest.requireActual("../app.config"),
-//   db: mockedDb,
-// }));
-
+import { Debt } from "../src/entity/Debt";
+import { db } from "../src/app.config";
 
 beforeEach(async () => {
   if (!db.isInitialized) await db.initialize();

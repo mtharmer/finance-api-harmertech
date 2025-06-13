@@ -7,7 +7,7 @@ const port = process.env.API_PORT || 3001
 
 logger.info("connecting to database...");
 try {
-  await db.initialize();
+  if (!db.isInitialized) await db.initialize();
   logger.info('initialized database');
   app.listen(port, () => logger.info(`API Server listening on port ${port}`));
 } catch (err) {
