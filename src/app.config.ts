@@ -54,4 +54,7 @@ export const db = new DataSource({
     entities: [Debt],
     subscribers: [],
     migrations: ["migration/*.ts"],
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
