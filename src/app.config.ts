@@ -48,7 +48,7 @@ export const SuperTokensConfig: TypeInput = {
 
 export const db = new DataSource({
     type: 'postgres',
-    url: process.env.PG_API_URL,
+    url: process.env.PG_DB_URL,
     synchronize: true,
     logging: true,
     entities: [Debt],
