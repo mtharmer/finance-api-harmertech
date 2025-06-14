@@ -17,3 +17,13 @@ try {
 } catch (err) {
   logger.error("failed to initialize database", err);
 }
+
+async function closeDb() {
+  logger.info('closing database connection...');
+  await db.destroy();
+  logger.info('database closed - exiting');
+  process.exit(0);
+}
+
+process.on('SIGINT', closeDb);
+process.on('SIGTERM', closeDb)
