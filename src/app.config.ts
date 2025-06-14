@@ -38,11 +38,13 @@ export const SuperTokensConfig: TypeInput = {
         apiDomain: getApiDomain(),
         websiteDomain: getWebsiteDomain(),
         apiBasePath: "/auth", 
-        websiteBasePath: "/auth", 
+        websiteBasePath: "/auth"
     },
     recipeList: [
         EmailPassword.init(),
-        Session.init()
+        Session.init({
+            cookieSameSite: 'none'
+        })
     ],
 };
 
