@@ -18,6 +18,10 @@ logger.info(`SUPERTOKENS_URI=${process.env.SUPERTOKENS_URI}`);
 logger.info(`SUPERTOKENS_API_KEY=${process.env.SUPERTOKENS_API_KEY}`);
 logger.info('=========================================================');
 
+export function isProduction() {
+    return process.env.NODE_ENV === 'production';
+}
+
 export function getApiDomain() {
     const apiUrl = process.env.VITE_FINANCE_API_URL || 'http://localhost:3001';
     return apiUrl;
@@ -42,9 +46,7 @@ export const SuperTokensConfig: TypeInput = {
     },
     recipeList: [
         EmailPassword.init(),
-        Session.init({
-            cookieSameSite: 'none'
-        })
+        Session.init(isProduction() ? {cookieSameSite: 'none'} : {})
     ],
 };
 
@@ -56,7 +58,5 @@ export const db = new DataSource({
     entities: [Debt],
     subscribers: [],
     migrations: ["migration/*.ts"],
-    ssl: {
-        rejectUnauthorized: false
-    }
+    ssl: isProduction() ? {rejectUnauthorized: false} : false
 });
