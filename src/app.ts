@@ -6,6 +6,7 @@ import { middleware, errorHandler, SessionRequest } from "supertokens-node/frame
 import { getWebsiteDomain, SuperTokensConfig } from "./app.config";
 import debtRoutes from "./routes/debts.routes";
 import logger from "./logger";
+import helmet from "helmet";
 
 logger.info("initializing authentication...");
 supertokens.init(SuperTokensConfig);
@@ -26,6 +27,12 @@ app.use(
 
 // This exposes all the APIs from SuperTokens to the client.
 app.use(middleware());
+
+// Use helmet for security protections
+app.use(helmet());
+
+// Disable app fingerprinting
+app.disable('x-powered-by');
 
 app.get("/status", async (_req, res) => {
     logger.http('received GET /status');
