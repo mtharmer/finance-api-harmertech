@@ -10,6 +10,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:14
+
     strategy:
       matrix:
         node-version: [18.x]
@@ -22,10 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.12.0
-      with:
-        mongodb-version: 8.0
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
@@ -33,4 +33,4 @@ jobs:
       env: 
         SUPERTOKENS_URI: http://localhost
         SUPERTOKENS_API_KEY: somekey
-        MONGODB_URI: mongodb://localhost:27017/finance_api_test
+        PG_DB_URL: postgresql://localhost:5432/finance_api_harmertech_test

@@ -8,6 +8,6 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-  // if (!db.isInitialized) await db.initialize();
+  if (!db.isInitialized) await db.initialize();
   await db.manager.deleteAll(Debt);
 });
