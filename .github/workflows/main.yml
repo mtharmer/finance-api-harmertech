@@ -16,7 +16,7 @@ jobs:
         ports:
           - 5432/tcp
         env:
-          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_PASSWORD: postgres
 
     strategy:
       matrix:
@@ -37,4 +37,4 @@ jobs:
       env: 
         SUPERTOKENS_URI: http://localhost
         SUPERTOKENS_API_KEY: somekey
-        PG_DB_URL: postgresql://localhost:5432/finance_api_harmertech_test
+        PG_DB_URL: postgresql://postgres:postgres@localhost:5432/finance_api_harmertech_test
