@@ -38,9 +38,8 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
-    - run: createdb -h localhost -p 5432 -U postgres -p postgres finance_api_harmertech_test
     - run: npm run test
       env: 
         SUPERTOKENS_URI: http://localhost
         SUPERTOKENS_API_KEY: somekey
-        PG_DB_URL: postgresql://postgres:postgres@localhost:5432/finance_api_harmertech_test
+        PG_DB_URL: postgresql://postgres:postgres@localhost:5432/postgres
