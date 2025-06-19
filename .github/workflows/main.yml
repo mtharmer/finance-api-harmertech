@@ -15,8 +15,8 @@ jobs:
         image: postgres:14-alpine
         ports:
           - 5432:5432
-        # env:
-        #   POSTGRES_PASSWORD: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -27,11 +27,11 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3.6'
-    # - name: Setup cache key and directory for gems cache
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: vendor/bundle
-    #     key: ${{ runner.os }}-gem-use-ruby-${{ hashFiles('**/Gemfile.lock') }}
+    - name: Setup cache key and directory for gems cache
+      uses: actions/cache@v4
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-use-ruby-${{ hashFiles('**/Gemfile.lock') }}
     - name: Bundle install
       run: |
         bundle config path vendor/bundle
@@ -39,7 +39,7 @@ jobs:
     - name: Run RSpec
       env:
         RAILS_ENV: test
-        PG_DB_URL: postgresql://postgres@localhost:5432/finance_api_test
+        PG_DB_URL: postgresql://postgres:postgres@localhost:5432/finance_api_test
         DEVISE_SECRET_KEY:
       run: |
         sudo apt-get -yqq install libpq-dev
