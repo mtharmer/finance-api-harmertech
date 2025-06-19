@@ -10,11 +10,12 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   config.jwt do |jwt|
-    if Rails.env.production?
-      jwt.secret = ENV['DEVISE_SECRET_KEY']
-    else
-      jwt.secret = Rails.application.credentials.devise_jwt_secret_key! || ENV['DEVISE_SECRET_KEY']
-    end
+    # if Rails.env.production? || Rails.env.test?
+    #   jwt.secret = ENV['DEVISE_SECRET_KEY']
+    # else
+    #   jwt.secret = Rails.application.credentials.devise_jwt_secret_key! || ENV['DEVISE_SECRET_KEY']
+    # end
+    jwt.secret = ENV['DEVISE_SECRET_KEY']
     jwt.dispatch_requests = [
       ['POST', %r{^/login$}]
     ]
