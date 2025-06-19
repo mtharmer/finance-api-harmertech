@@ -40,5 +40,12 @@ module FinanceApiHarmertech
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Define factorybot factories directory
+    config.factory_bot.definition_file_paths = ["spec/factories"]
+
+    config.generators do |g|
+      g.factory_bot dir: 'spec/factories'
+    end
   end
 end
