@@ -38,7 +38,12 @@ gem "rack-cors"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+end
+
+group :test do
   gem "rspec-rails", "~> 7.1"
+  gem "shoulda-matchers", "~> 6.5"
+  gem "simplecov", "~> 0.22.0"
 end
 
 group :development do
