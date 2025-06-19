@@ -15,6 +15,7 @@ ENV RAILS_ENV="production" \
 
 ENV DEVISE_SECRET_KEY=
 ENV PG_DB_URL=
+ENV RAILS_MASTER_KEY=
 
 # Throw-away build stage to reduce size of final image
 FROM base as build

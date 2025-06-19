@@ -9,6 +9,7 @@ services:
     restart: unless-stopped
     environment:
       - RAILS_ENV
+      - RAILS_MASTER_KEY
       - PG_DB_URL
       - DEVISE_SECRET_KEY
     ports:
