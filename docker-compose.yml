@@ -10,6 +10,7 @@ services:
     environment:
       - RAILS_ENV
       - PG_DB_URL
+      - DEVISE_SECRET_KEY
     ports:
       - 3000:3000
     network_mode: host
