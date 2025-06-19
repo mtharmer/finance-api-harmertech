@@ -1,0 +1,35 @@
+name: Rails CI
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3.6'
+    - run: bundle install
+    - run: bin/rails db:create
+    - run: bin/rails db:migrate
+    - run: bin/bundle exec rspec
+      env:
+        PG_DB_URL: postgresql://postgres:postgres@localhost:5432/postgres
