@@ -33,3 +33,5 @@ jobs:
     - run: bin/bundle exec rspec
       env:
         PG_DB_URL: postgresql://postgres:postgres@localhost:5432/postgres
+        DEVISE_SECRET_KEY:
+
