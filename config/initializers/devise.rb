@@ -21,6 +21,10 @@ Devise.setup do |config|
   end
 
   config.skip_session_storage = [:http_auth, :params_auth]
+
+  config.warden do |warden|
+    warden.scope_defaults :user, store: false
+  end
   
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
