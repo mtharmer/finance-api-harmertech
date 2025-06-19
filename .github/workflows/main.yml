@@ -15,8 +15,8 @@ jobs:
         image: postgres
         ports:
           - 5432:5432
-        env:
-          POSTGRES_PASSWORD: postgres
+        # env:
+        #   POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -27,12 +27,22 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3.6'
-    - run: bundle install
-    - run: bin/rails db:create
-    - run: bin/rails db:migrate
-    - run: bin/bundle exec rspec
+    - name: Setup cache key and directory for gems cache
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-use-ruby-${{ hashFiles('**/Gemfile.lock') }}
+    - name: Bundle install
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+    - run: bundle exec rails db:create
+    - run: bundle exec rails db:migrate
+    - name: Run RSpec
       env:
         RAILS_ENV: test
-        PG_DB_URL: postgresql://postgres:postgres@localhost:5432/finance_api_test
+        PG_DB_URL: postgresql://postgres@localhost:5432/finance_api_test
         DEVISE_SECRET_KEY:
-
+    - run: |
+        bundle exec rails db:setup
+        bundle exec rspec
