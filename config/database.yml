@@ -81,6 +81,3 @@ test:
 production:
   <<: *default
   url: <%= ENV["PG_DB_URL"] %>
-  database: finance_api_harmertech_production
-  username: finance_api_harmertech
-  password: <%= ENV["FINANCE_API_HARMERTECH_DATABASE_PASSWORD"] %>

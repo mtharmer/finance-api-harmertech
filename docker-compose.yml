@@ -1,0 +1,20 @@
+services:
+  finance-api:
+    image: 273058101644.dkr.ecr.us-east-1.amazonaws.com/finance-api-prod:latest
+    build:
+      context: .
+      platforms:
+      - "linux/amd64"
+    hostname: finance-api
+    restart: unless-stopped
+    environment:
+      - RAILS_ENV
+      - PG_DB_URL
+    ports:
+      - 3000:3000
+    network_mode: host
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: finance-api
+        awslogs-stream: finance-api-logs
