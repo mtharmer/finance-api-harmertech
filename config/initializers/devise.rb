@@ -29,6 +29,8 @@ Devise.setup do |config|
   config.warden do |warden|
     warden.scope_defaults :user, store: false
   end
+
+  config.navigational_formats = []
   
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
