@@ -41,6 +41,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows]
   gem 'factory_bot_rails', '~> 6.5'
+  gem 'rspec-rails', '~> 7.1'
   gem 'rubocop-factory_bot', '~> 2.27'
   gem 'rubocop-rails', '~> 2.32'
   gem 'rubocop-rspec', '~> 3.6'
@@ -49,7 +50,6 @@ end
 
 group :test do
   gem 'faker', '~> 3.5'
-  gem 'rspec-rails', '~> 7.1'
   gem 'shoulda-matchers', '~> 6.5'
   gem 'simplecov', '~> 0.22.0'
 end
