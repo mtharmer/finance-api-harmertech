@@ -42,7 +42,7 @@ jobs:
         PG_DB_URL: postgresql://postgres:postgres@localhost:5432/finance_api_test
         DEVISE_SECRET_KEY:
       run: |
-        sudo apt-get -yqq install libpq-dev
+        sudo apt-get -y install libpq-dev
         bundle exec rubocop -c .rubocop.yml .
         bundle exec rails db:setup
         bundle exec rspec
