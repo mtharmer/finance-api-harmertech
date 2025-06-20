@@ -1,0 +1,47 @@
+name: Rails CI
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14-alpine
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3.6'
+    - name: Setup cache key and directory for gems cache
+      uses: actions/cache@v4
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-use-ruby-${{ hashFiles('**/Gemfile.lock') }}
+    - name: Bundle install
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+    - name: Run RSpec
+      env:
+        RAILS_ENV: test
+        PG_DB_URL: postgresql://postgres:postgres@localhost:5432/finance_api_test
+        DEVISE_SECRET_KEY:
+      run: |
+        sudo apt-get -y install libpq-dev
+        bundle exec rails db:setup
+        bundle exec rspec

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class DebtsController < ApplicationController
-  before_action :set_debt, only: %i[ show update destroy ]
+  before_action :set_debt, only: %i[show update destroy]
 
   # GET /debts
   def index
@@ -39,13 +41,14 @@ class DebtsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_debt
-      @debt = current_user.debts.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def debt_params
-      params.require(:debt).permit(:name, :original_balance, :current_balance, :apr, :original_term, :minimum_payment)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_debt
+    @debt = current_user.debts.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def debt_params
+    params.require(:debt).permit(:name, :original_balance, :current_balance, :apr, :original_term, :minimum_payment)
+  end
 end
