@@ -43,6 +43,6 @@ jobs:
         DEVISE_SECRET_KEY:
       run: |
         sudo apt-get -y install libpq-dev
-        bundle exec rubocop -c .rubocop.yml .
         bundle exec rails db:setup
+        bundle exec rubocop -c .rubocop.yml .
         bundle exec rspec
