@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :monthly_expenses
   resources :debts
   # devise_for :users
   devise_for :users, path: '',
