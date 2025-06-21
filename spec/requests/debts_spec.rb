@@ -22,7 +22,6 @@ RSpec.describe '/debts', type: :request do
   # Debt. As you add validations to Debt, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    # skip("Add a hash of attributes valid for your model")
     {
       name: 'some name',
       original_balance: 5000,
@@ -34,8 +33,14 @@ RSpec.describe '/debts', type: :request do
   end
 
   let(:invalid_attributes) do
-    # skip("Add a hash of attributes invalid for your model")
-    {}
+    {
+      name: nil,
+      original_balance: 5000,
+      current_balance: 4000.25,
+      apr: 3.6,
+      original_term: 24,
+      minimum_payment: 120.50
+    }
   end
 
   # This should return the minimal set of values that should be in the headers
@@ -91,7 +96,7 @@ RSpec.describe '/debts', type: :request do
       it 'renders a JSON response with errors for the new debt' do
         post debts_url,
              params: { debt: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
@@ -132,7 +137,7 @@ RSpec.describe '/debts', type: :request do
         debt = user.debts.create! valid_attributes
         patch debt_url(debt),
               params: { debt: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end

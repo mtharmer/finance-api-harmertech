@@ -9,4 +9,5 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :debts, dependent: :destroy
+  has_many :monthly_expenses, dependent: :destroy
 end
