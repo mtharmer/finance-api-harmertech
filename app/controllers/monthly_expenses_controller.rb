@@ -5,7 +5,7 @@ class MonthlyExpensesController < ApplicationController
   def index
     @monthly_expenses = current_user.monthly_expenses.all
 
-    render json: @monthly_expenses
+    render json: MonthlyExpenseSerializer.new(@monthly_expenses).serializable_hash.to_json
   end
 
   # GET /monthly_expenses/1
@@ -18,7 +18,7 @@ class MonthlyExpensesController < ApplicationController
     @monthly_expense = current_user.monthly_expenses.new(monthly_expense_params)
 
     if @monthly_expense.save
-      render json: @monthly_expense, status: :created, location: @monthly_expense
+      render json: MonthlyExpenseSerializer.new(@monthly_expense).serializable_hash.to_json, status: :created
     else
       render json: @monthly_expense.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class MonthlyExpensesController < ApplicationController
   # PATCH/PUT /monthly_expenses/1
   def update
     if @monthly_expense.update(monthly_expense_params)
-      render json: @monthly_expense
+      render json: MonthlyExpenseSerializer.new(@monthly_expense).serializable_hash.to_json
     else
       render json: @monthly_expense.errors, status: :unprocessable_entity
     end
