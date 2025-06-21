@@ -7,6 +7,10 @@ RSpec.describe DebtSerializer do
   let(:serialized) { described_class.new(debt).serializable_hash.as_json }
   let(:attributes) { serialized.dig('data', 'attributes') }
 
+  it 'includes id' do
+    expect(attributes['id']).to eq(debt.id)
+  end
+
   it 'includes name' do
     expect(attributes['name']).to eq(debt.name)
   end

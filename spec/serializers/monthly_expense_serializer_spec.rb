@@ -7,6 +7,10 @@ RSpec.describe MonthlyExpenseSerializer do
   let(:serialized) { described_class.new(monthly_expense).serializable_hash.as_json }
   let(:attributes) { serialized.dig('data', 'attributes') }
 
+  it 'includes id' do
+    expect(attributes['id']).to eq(monthly_expense.id)
+  end
+
   it 'includes name' do
     expect(attributes['name']).to eq(monthly_expense.name)
   end
