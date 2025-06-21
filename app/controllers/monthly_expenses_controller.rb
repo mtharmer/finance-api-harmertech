@@ -3,7 +3,7 @@ class MonthlyExpensesController < ApplicationController
 
   # GET /monthly_expenses
   def index
-    @monthly_expenses = current_user.monthly_expense.all
+    @monthly_expenses = current_user.monthly_expenses.all
 
     render json: @monthly_expenses
   end
@@ -15,7 +15,7 @@ class MonthlyExpensesController < ApplicationController
 
   # POST /monthly_expenses
   def create
-    @monthly_expense = current_user.monthly_expense.new(monthly_expense_params)
+    @monthly_expense = current_user.monthly_expenses.new(monthly_expense_params)
 
     if @monthly_expense.save
       render json: @monthly_expense, status: :created, location: @monthly_expense
@@ -41,11 +41,11 @@ class MonthlyExpensesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_monthly_expense
-      @monthly_expense = current_user.monthly_expense.find(params[:id])
+      @monthly_expense = current_user.monthly_expenses.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def monthly_expense_params
-      params.fetch(:monthly_expense, {})
+      params.require(:monthly_expense).permit(:name, :amount, :expense_type, :due_day)
     end
 end

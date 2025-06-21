@@ -39,7 +39,7 @@ jobs:
     - name: Run RSpec
       env:
         RAILS_ENV: test
-        PG_DB_URL: postgresql://postgres:postgres@localhost:5432/finance_api_test
+        PG_DB_TEST_URL: postgresql://postgres:postgres@localhost:5432/finance_api_test
         DEVISE_SECRET_KEY:
       run: |
         sudo apt-get -y install libpq-dev
