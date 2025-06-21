@@ -20,7 +20,7 @@ class DebtsController < ApplicationController
     @debt = current_user.debts.new(debt_params)
 
     if @debt.save
-      render json: DebtSerializer.new(@debt), status: :created
+      render json: DebtSerializer.new(@debt).serializable_hash.to_json, status: :created
     else
       render json: @debt.errors, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class DebtsController < ApplicationController
   # PATCH/PUT /debts/1
   def update
     if @debt.update(debt_params)
-      render json: @debt
+      render json: DebtSerializer.new(@debt).serializable_hash.to_json
     else
       render json: @debt.errors, status: :unprocessable_entity
     end

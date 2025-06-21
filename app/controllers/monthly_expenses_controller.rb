@@ -10,7 +10,7 @@ class MonthlyExpensesController < ApplicationController
 
   # GET /monthly_expenses/1
   def show
-    render json: @monthly_expense
+    render json: MonthlyExpenseSerializer.new(@monthly_expense).serializable_hash.to_json
   end
 
   # POST /monthly_expenses

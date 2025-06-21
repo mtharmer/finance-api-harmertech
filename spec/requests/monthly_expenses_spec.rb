@@ -52,6 +52,14 @@ RSpec.describe "/monthly_expenses", type: :request do
       get monthly_expenses_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
+
+    it 'responds in serialized format' do
+      expense = user.monthly_expenses.create! valid_attributes
+      get monthly_expenses_url, headers: valid_headers, as: :json
+      data = JSON.parse(response.body)
+      expect(data['data'].length).to eq(1)
+      expect(data['data'][0].dig('attributes', 'name')).to eq(expense.name)
+    end
   end
 
   describe "GET /show" do
@@ -59,6 +67,13 @@ RSpec.describe "/monthly_expenses", type: :request do
       monthly_expense = user.monthly_expenses.create! valid_attributes
       get monthly_expense_url(monthly_expense), headers: valid_headers, as: :json
       expect(response).to be_successful
+    end
+
+    it 'renders in serialized format' do
+      monthly_expense = user.monthly_expenses.create! valid_attributes
+      get monthly_expense_url(monthly_expense), headers: valid_headers, as: :json
+      data = JSON.parse(response.body)
+      expect(data.dig('data', 'attributes', 'name')).to eq(monthly_expense.name)
     end
   end
 
@@ -76,6 +91,13 @@ RSpec.describe "/monthly_expenses", type: :request do
              params: { monthly_expense: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
+      end
+
+      it 'renders in serialized format' do
+        post monthly_expenses_url,
+             params: { monthly_expense: valid_attributes }, headers: valid_headers, as: :json
+        data = JSON.parse(response.body)
+        expect(data.dig('data', 'attributes', 'name')).to eq(valid_attributes[:name])
       end
     end
 
@@ -122,6 +144,14 @@ RSpec.describe "/monthly_expenses", type: :request do
               params: { monthly_expense: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including("application/json"))
+      end
+
+      it 'renders in serialized format' do
+        monthly_expense = user.monthly_expenses.create! valid_attributes
+        patch monthly_expense_url(monthly_expense),
+              params: { monthly_expense: new_attributes }, headers: valid_headers, as: :json
+        data = JSON.parse(response.body)
+        expect(data.dig('data', 'attributes', 'name')).to eq(new_attributes[:name])
       end
     end
 
