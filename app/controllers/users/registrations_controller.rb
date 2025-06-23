@@ -28,11 +28,17 @@ module Users
 
       resource_updated = update_resource(resource, account_update_params)
       if resource_updated
-        respond_with resource
+        # respond_with resource
+        render json: {
+          status: { code: 200, message: 'Signed up successfully' },
+          data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
+        }, status: :ok
       else
         clean_up_passwords resource
         set_minimum_password_length
-        respond_with resource
+        render json: {
+          status: { code: 422, message: resource.errors.full_messages.to_sentence }
+        }, status: :unprocessable_entity
       end
     end
 
