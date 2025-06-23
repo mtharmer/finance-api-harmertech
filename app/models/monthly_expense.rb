@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class MonthlyExpense < ApplicationRecord
   belongs_to :user
 
-  validates_presence_of %i[name amount]
+  validates :name, :amount, presence: true
 end

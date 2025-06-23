@@ -23,9 +23,18 @@ module Users
     # end
 
     # PUT /resource
-    # def update
-    #   super
-    # end
+    def update
+      self.resource = resource_class.to_adapter.get(current_user)
+
+      resource_updated = update_resource(resource, account_update_params)
+      if resource_updated
+        success_response(resource, 'Successfully changed password')
+      else
+        clean_up_passwords resource
+        set_minimum_password_length
+        failed_response resource
+      end
+    end
 
     # DELETE /resource
     # def destroy
@@ -67,15 +76,23 @@ module Users
 
     def respond_with(resource, _opts = {})
       if resource.persisted?
-        render json: {
-          status: { code: 200, message: 'Signed up successfully' },
-          data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
-        }, status: :ok
+        success_response(resource, 'Signed up successfully')
       else
-        render json: {
-          status: { code: 422, message: resource.errors.full_messages.to_sentence }
-        }, status: :unprocessable_entity
+        failed_response resource
       end
+    end
+
+    def success_response(resource, msg)
+      render json: {
+        status: { code: 200, message: msg },
+        data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
+      }, status: :ok
+    end
+
+    def failed_response(resource)
+      render json: {
+        status: { code: 422, message: resource.errors.full_messages.to_sentence }
+      }, status: :unprocessable_entity
     end
   end
 end
