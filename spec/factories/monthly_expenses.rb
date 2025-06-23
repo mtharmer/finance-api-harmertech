@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :monthly_expense do
     name { Faker::Company.name }

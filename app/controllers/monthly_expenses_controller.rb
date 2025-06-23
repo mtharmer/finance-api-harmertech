@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class MonthlyExpensesController < ApplicationController
-  before_action :set_monthly_expense, only: %i[ show update destroy ]
+  before_action :set_monthly_expense, only: %i[show update destroy]
 
   # GET /monthly_expenses
   def index
@@ -39,13 +41,14 @@ class MonthlyExpensesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_monthly_expense
-      @monthly_expense = current_user.monthly_expenses.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def monthly_expense_params
-      params.require(:monthly_expense).permit(:name, :amount, :expense_type, :due_day)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_monthly_expense
+    @monthly_expense = current_user.monthly_expenses.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def monthly_expense_params
+    params.require(:monthly_expense).permit(:name, :amount, :expense_type, :due_day)
+  end
 end

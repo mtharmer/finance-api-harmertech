@@ -62,7 +62,7 @@ RSpec.describe '/debts', type: :request do
     it 'renders in serialized format' do
       debt = user.debts.create! valid_attributes
       get debts_url, headers: valid_headers, as: :json
-      data = JSON.parse(response.body)
+      data = response.parsed_body
       expect(data['data'].length).to eq(1)
       expect(data['data'][0].dig('attributes', 'name')).to eq(debt.name)
     end
@@ -78,7 +78,7 @@ RSpec.describe '/debts', type: :request do
     it 'renders in serialized format' do
       debt = user.debts.create! valid_attributes
       get debt_url(debt), headers: valid_headers, as: :json
-      data = JSON.parse(response.body)
+      data = response.parsed_body
       expect(data.dig('data', 'attributes', 'name')).to eq(debt.name)
     end
   end
@@ -102,7 +102,7 @@ RSpec.describe '/debts', type: :request do
       it 'renders in serialized format' do
         post debts_url,
              params: { debt: valid_attributes }, headers: valid_headers, as: :json
-        data = JSON.parse(response.body)
+        data = response.parsed_body
         expect(data.dig('data', 'attributes', 'name')).to eq(valid_attributes[:name])
       end
     end
@@ -157,7 +157,7 @@ RSpec.describe '/debts', type: :request do
         debt = user.debts.create! valid_attributes
         patch debt_url(debt),
               params: { debt: new_attributes }, headers: valid_headers, as: :json
-        data = JSON.parse(response.body)
+        data = response.parsed_body
         expect(data.dig('data', 'attributes', 'name')).to eq(new_attributes[:name])
       end
     end
