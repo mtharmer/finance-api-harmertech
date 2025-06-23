@@ -24,6 +24,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_23_230635) do
     t.decimal "minimum_payment", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "original_interest", precision: 10, scale: 2
+    t.decimal "remaining_interest", precision: 10, scale: 2
+    t.integer "remaining_term"
+    t.decimal "principal_paid", precision: 10, scale: 2
     t.index ["user_id"], name: "index_debts_on_user_id"
   end
 
@@ -47,10 +51,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_23_230635) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "jti", null: false
-    t.decimal "original_interest", precision: 10, scale: 2
-    t.decimal "remaining_interest", precision: 10, scale: 2
-    t.integer "remaining_term"
-    t.decimal "principal_paid", precision: 10, scale: 2
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
