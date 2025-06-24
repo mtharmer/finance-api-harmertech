@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module LoanCalculator
   class Interest
     attr_reader :result
-    
+
     def initialize(rate, balance, payment, term)
       @rate = rate / 100.0
       @balance = balance
@@ -11,11 +13,9 @@ module LoanCalculator
     end
 
     def calculate(balance, term, interest = 0)
-      if term <= 0 || balance <= 0
-        return interest
-      end
+      return interest if term <= 0 || balance <= 0
 
-      cur_interest = (balance * (1 + @rate / 12)).round(2) - balance
+      cur_interest = (balance * (1 + (@rate / 12))).round(2) - balance
       interest += cur_interest
       balance -= @payment - cur_interest
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LoanCalculator
   class Payments
     attr_reader :result
@@ -6,17 +8,15 @@ module LoanCalculator
       @rate = rate / 100.0
       @balance = balance
       @payment = payment
-      @result = calculate()
+      @result = calculate
     end
 
     def calculate(current_balance = @balance, term = 0)
-      if (current_balance <= 0)
-        return term
-      end
+      return term if current_balance <= 0
 
-      interest = (current_balance * (1 + @rate / 12)).round(2) - current_balance
+      interest = (current_balance * (1 + (@rate / 12))).round(2) - current_balance
       principal = @payment - interest
-      return calculate(current_balance - principal, term + 1)
+      calculate(current_balance - principal, term + 1)
     end
   end
 end
