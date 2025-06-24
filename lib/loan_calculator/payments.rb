@@ -12,6 +12,7 @@ module LoanCalculator
     end
 
     def calculate(current_balance = @balance, term = 0)
+      return 0 if @payment <= 0
       return term if current_balance <= 0
 
       interest = (current_balance * (1 + (@rate / 12))).round(2) - current_balance

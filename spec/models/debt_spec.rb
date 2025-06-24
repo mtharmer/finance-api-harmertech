@@ -21,4 +21,26 @@ RSpec.describe Debt, type: :model do
       expect(debt.name).to eq('Some Company')
     end
   end
+
+  describe 'creating' do
+    it 'calculates paid principal' do
+      debt = create(:debt)
+      expect(debt.principal_paid).to eq(1646.65)
+    end
+
+    it 'calculates remaining term' do
+      debt = create(:debt)
+      expect(debt.remaining_term).to eq(63)
+    end
+
+    it 'calculates original interest' do
+      debt = create(:debt)
+      expect(debt.original_interest).to eq(8880.74)
+    end
+
+    it 'calculates remaining interest' do
+      debt = create(:debt)
+      expect(debt.remaining_interest).to eq(7053.16)
+    end
+  end
 end

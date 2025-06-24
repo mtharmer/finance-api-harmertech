@@ -13,7 +13,8 @@ module LoanCalculator
     end
 
     def calculate(balance, term, interest = 0)
-      return interest if term <= 0 || balance <= 0
+      return 0 if @payment <= 0
+      return interest.round(2) if term <= 0 || balance <= 0
 
       cur_interest = (balance * (1 + (@rate / 12))).round(2) - balance
       interest += cur_interest
