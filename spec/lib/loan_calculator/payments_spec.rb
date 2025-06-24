@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe LoanCalculator::Payments do
@@ -13,7 +15,7 @@ RSpec.describe LoanCalculator::Payments do
     end
 
     it 'returns the expected calculation' do
-      result = described_class.new(13.34, 17899.37, 397.94).result
+      result = described_class.new(13.34, 17_899.37, 397.94).result
       expect(result).to eq(63)
     end
   end

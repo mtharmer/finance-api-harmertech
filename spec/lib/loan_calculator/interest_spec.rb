@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe LoanCalculator::Interest do
@@ -18,7 +20,7 @@ RSpec.describe LoanCalculator::Interest do
     end
 
     it 'returns the expected interest' do
-      result = described_class.new(13.34, 17899.37, 397.94, 63).result
+      result = described_class.new(13.34, 17_899.37, 397.94, 63).result
       expect(result).to eq(7053.16)
     end
   end
