@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Mortgage < ApplicationRecord
   belongs_to :user
 
-  validates_presence_of :original_balance, :current_balance, :apr, :term, :payment
+  validates :original_balance, :current_balance, :apr, :term, :payment, presence: true
 
   before_save :calculate
 

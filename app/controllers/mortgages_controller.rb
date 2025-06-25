@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class MortgagesController < ApplicationController
-  before_action :set_mortgage, only: %i[ show update destroy ]
+  before_action :set_mortgage, only: %i[show update destroy]
 
   # GET /mortgages
   def show
@@ -32,17 +34,18 @@ class MortgagesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_mortgage
-      @mortgage = current_user.mortgage
-    end
 
-    # Only allow a list of trusted parameters through.
-    def mortgage_params
-      params.require(:mortgage).permit(:original_balance, :down_payment, :original_balance_after_down_payment, :current_balance,
-                                       :apr, :term, :payment, :tax, :insurance,
-                                       :pmi, :extra_payment, :original_interest, :remaining_interest, :remaining_term,
-                                       :original_interest_after_extra, :remaining_interest_after_extra, 
-                                       :remaining_term_after_extra, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_mortgage
+    @mortgage = current_user.mortgage
+  end
+
+  # Only allow a list of trusted parameters through.
+  def mortgage_params
+    params.require(:mortgage).permit(:original_balance, :down_payment, :original_balance_after_down_payment,
+                                     :current_balance, :apr, :term, :payment, :tax, :insurance,
+                                     :pmi, :extra_payment, :original_interest, :remaining_interest, :remaining_term,
+                                     :original_interest_after_extra, :remaining_interest_after_extra,
+                                     :remaining_term_after_extra, :user_id)
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :mortgage do
     original_balance { 356_521.67 }
