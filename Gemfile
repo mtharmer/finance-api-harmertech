@@ -65,3 +65,6 @@ gem 'devise', '~> 4.9'
 gem 'jsonapi-serializer', '~> 2.2'
 
 gem 'devise-jwt', '~> 0.12.1'
+
+gem "aws-sdk-rails", "~> 5.1"
+gem "aws-actionmailer-ses", "~> 1.0"
