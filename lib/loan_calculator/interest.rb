@@ -18,7 +18,7 @@ module LoanCalculator
 
       cur_interest = (balance * (1 + (@rate / 12))).round(2) - balance
       interest += cur_interest
-      balance -= @payment - cur_interest
+      balance -= [balance, @payment - cur_interest].min
 
       calculate(balance, term - 1, interest)
     end

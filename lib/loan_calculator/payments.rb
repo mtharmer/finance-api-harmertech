@@ -16,8 +16,8 @@ module LoanCalculator
       return term if current_balance <= 0
 
       interest = (current_balance * (1 + (@rate / 12))).round(2) - current_balance
-      principal = @payment - interest
-      calculate(current_balance - principal, term + 1)
+      current_balance -= [current_balance, @payment - interest].min
+      calculate(current_balance, term + 1)
     end
   end
 end

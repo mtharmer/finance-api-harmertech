@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_23_230635) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_25_190952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,30 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_23_230635) do
     t.index ["user_id"], name: "index_monthly_expenses_on_user_id"
   end
 
+  create_table "mortgages", force: :cascade do |t|
+    t.decimal "original_balance", precision: 10, scale: 2
+    t.decimal "current_balance", precision: 10, scale: 2
+    t.decimal "apr", precision: 6, scale: 3, default: "0.0"
+    t.integer "term"
+    t.decimal "payment", precision: 10, scale: 2
+    t.decimal "tax", precision: 10, scale: 2, default: "0.0"
+    t.decimal "insurance", precision: 10, scale: 2, default: "0.0"
+    t.decimal "pmi", precision: 10, scale: 2, default: "0.0"
+    t.decimal "extra_payment", precision: 10, scale: 2, default: "0.0"
+    t.decimal "original_interest", precision: 10, scale: 2
+    t.decimal "remaining_interest", precision: 10, scale: 2
+    t.integer "remaining_term"
+    t.decimal "original_interest_after_extra", precision: 10, scale: 2
+    t.decimal "remaining_interest_after_extra", precision: 10, scale: 2
+    t.integer "remaining_term_after_extra"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "down_payment", precision: 10, scale: 2, default: "0.0"
+    t.decimal "original_balance_after_down_payment", precision: 10, scale: 2
+    t.index ["user_id"], name: "index_mortgages_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -58,4 +82,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_23_230635) do
 
   add_foreign_key "debts", "users"
   add_foreign_key "monthly_expenses", "users"
+  add_foreign_key "mortgages", "users"
 end
